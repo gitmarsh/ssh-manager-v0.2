@@ -3,7 +3,7 @@ Testing repository for SSH key management.
 This is purely for learning purposes only to help better understand bash scripting and secruity practices.
 Feedback is appreciated
 
-The way this consists of 3 encrypted lists:
+This script consists of 3 different encrypted files/lists:
 
   - serverlist: Nicknames(Aliases) of the servers for easy identification
   
