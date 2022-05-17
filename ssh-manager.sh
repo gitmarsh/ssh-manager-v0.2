@@ -55,7 +55,7 @@ rm .srv.tmp && ssh "$connectid"								## Deletes the Tempororary File and Attem
 }
 
 function delete () {
-ls -1 ~/.scripts/sshkeymanager/server_aliases/ | cat -n
+ls -1 ./server_list | cat -n
 
 echo -e "\n${cyan}Enter server name you wish to delete${reset}\n"
 	read -n 1 -s answer2
@@ -66,11 +66,11 @@ echo -e "${red}Are you sure you wish to delete this server from this list?${rese
 read -n 1 -s confirm
 if [ "$confirm" == "y" ]
 then
-rm ~/.scripts/sshkeymanager/server_aliases/"$serverid"
+rm ./server_list/"$serverid".conf.gpg
 echo "Server has been deleted: return to beginning?: (y)Yes/(n)Exit"
 read -n 1 -s response
 	if [ "$response" == "y" ]
-	then sh ~/.scripts/sshkeymanager/remote-aliases
+	then sh ./server_list/"$serverid".conf.gpg
 	else
 		exit
 	fi
@@ -83,7 +83,7 @@ fi
 function init () {
     
     function list () {
-         ls -1 ~/.scripts/sshkeymanager/server_aliases/ | cat -n
+         ls -1 ./server_list | cat -n
         menu
     }
 
