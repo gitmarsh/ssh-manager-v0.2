@@ -10,6 +10,7 @@ cyan="\e[36m"
 grey="\e[37m"
 reset="\e[0m"
 
+
 function newserver () {
 read -p $'\e[35mEnter server ip\e[0m: ' serverip
 read -p  $'\e[34mEnter username\e[0m: ' user
@@ -18,10 +19,10 @@ sleep 1
 newid="$user@$serverip"
 fileid=$RANDOM
   echo "$newid" > ./server_list/"$fileid".conf &&
-	gpg -c ./server_list/"$fileid".conf &&
-	rm ./server_list/"$fileid".conf &&
-	gpg -d identity.conf.gpg > identity.conf &&
-	gpg -d serverlist.gpg > serverlist &&
+	gpg -c ./server_list/"$fileid".conf &&		## Decrypts server list and adds new key	
+	rm ./server_list/"$fileid".conf &&		## Encrypts the updated list and deletes the old list
+	gpg -d identity.conf.gpg > identity.conf &&	## Decrypts server identitifier 
+	gpg -d serverlist.gpg > serverlist &&		## Encrypts the updated list and deletes the old list
   echo "$nickname" >> serverlist &&
 	gpg -c serverlist && rm serverlist &&
   echo "$nickname= $fileid" >> identity.conf &&
