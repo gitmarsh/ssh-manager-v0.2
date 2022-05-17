@@ -9,5 +9,5 @@ The way this consists of 3 encrypted lists:
   
  - identity_list:  Matches the nicknames to an ID # that points to the file with the ip and user name
 	
- - ./server_list/:  Directory with the ip and username of each server
+ - ./server_list/:  Directory with the ip and username of each server each encrypted with a randomly numbered filename
   
