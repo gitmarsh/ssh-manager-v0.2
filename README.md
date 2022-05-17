@@ -10,4 +10,5 @@ This script consists of 3 different encrypted files/lists:
  -  identity.conf:  Matches the nicknames(aliases) to an ID # that points to the file with the ip and user name
 	
  - ./server_list/:  Directory with the ip and username of each server each encrypted with a randomly numbered filename
-  
+ 
+ ** Some functions are using an older version's directory structure and will not function properly. 
