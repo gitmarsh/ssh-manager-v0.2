@@ -38,7 +38,7 @@ if [ "$answer" == "y" ]
 then
 	sh ~/.scripts/sshkeymanager/server_aliases/"$nickname($serverip)"
 else
-	sleep 1 && echo "SSH Connect Closing..." && sleep 1
+	sleep 1 && echo "SSH Connect Closing..." && sleep 2
     exit
 fi
 }
