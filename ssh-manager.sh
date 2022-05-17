@@ -38,19 +38,19 @@ exit
 
 function connect () {
 
-gpg -d serverlist.gpg > .srv.tmp && cat .srv.tmp -n
+gpg -d serverlist.gpg > .srv.tmp && cat .srv.tmp -n			## Decrypts the Servlist into a hidden temporary file and cats out the contents
 
 echo -e "\n${cyan}Enter server name you wish to connect to${reset}\n"
 read -n 1 -s answer2
 
-tempid="$(cat .srv.tmp | sed -n "$answer2"p | awk "{print $1}" )"
-serverid="$(gpg -d identity.conf.gpg | grep -e "$tempid" | awk -F"=" '{print $2}')"
-connectid="$(gpg -d ./server_list/$serverid.conf.gpg)"
+tempid="$(cat .srv.tmp | sed -n "$answer2"p | awk "{print $1}" )"			## Extracts the selected Alias into a variable
+serverid="$(gpg -d identity.conf.gpg | grep -e "$tempid" | awk -F"=" '{print $2}')"	##  Decrypts the Identity list and matches the --
+connectid="$(gpg -d ./server_list/$serverid.conf.gpg)"					## the variable to the correct credentials file	
 
 sleep 1 
 echo -e "${yellow}Connecting.....${reset} ${purple}$serverid${reset}\n"
 sleep 1
-rm .srv.tmp && ssh "$connectid"
+rm .srv.tmp && ssh "$connectid"								## Deletes the Tempororary File and Attempts SSH Connection
 
 }
 
