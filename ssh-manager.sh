@@ -19,18 +19,18 @@ sleep 1
 newid="$($user@$serverip)"
 fileid=$RANDOM
 
-echo "$newid" > './server_list/"$fileid".conf' &&
-		gpg -c './server_list/"$fileid".conf' &&
-	rm './server_list/"$fileid".conf' &&
-		gpg -d 'identity.conf.gpg' > 'identity.conf' &&
-		gpg -d 'serverlist.gpg' > 'serverlist' &&
-echo "$nickname" >> 'serverlist' &&
-		gpg -c 'serverlist' && rm 'serverlist' &&
-echo "$nickname"= "$fileid" >> 'identity.conf' &&
-	rm 'identity.conf.gpg' &&
-		gpg -c 'identity.conf' && 
-	rm 'identity.conf'
-echo -e "${green}Quick SSH Entry Added!${reset}"
+echo "$newid" > './server_list/"$fileid".conf' &&		## Generates a randomly named file with the servers IP and User
+		gpg -c './server_list/"$fileid".conf' &&	## Encrypts the new file and deletes the regular file
+	rm './server_list/"$fileid".conf' &&			
+		gpg -d 'identity.conf.gpg' > 'identity.conf' && ## Decrypts the List that associates the server alias with correct credentials
+		gpg -d 'serverlist.gpg' > 'serverlist' &&	## Decrypts the list contaings just the aliases
+echo "$nickname" >> 'serverlist' &&				## Adds the new alias to the serverlist
+		gpg -c 'serverlist' && rm 'serverlist' &&	## Re-Encrypts the Server Aliaes List and removes the original
+echo "$nickname"= "$fileid" >> 'identity.conf' &&		## Adds the Alias and the Credentials File ID into the Identity List
+	rm 'identity.conf.gpg' &&				## Removes the old Identity List
+		gpg -c 'identity.conf' && 			## Encrypts the new list
+	rm 'identity.conf'					## Removes the origanl List
+echo -e "${green}Quick SSH Entry Added!${reset}"		### Everything new should be added and everything re-encrypted
 
 exit
 
