@@ -11,4 +11,4 @@ This script consists of 3 different encrypted files/lists:
 	
  - ./server_list/:  Directory with the ip and username of each server each encrypted with a randomly numbered filename
  
- ** Some functions are using an older version's directory structure and will not function properly. 
+ ** Be aware this is purely a bash script and must be run within this directory.  Running this script outside of this directory will break file pathing
