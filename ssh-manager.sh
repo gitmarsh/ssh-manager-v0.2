@@ -1,5 +1,5 @@
 #!/bin/bash
-
+						
 
 red="\e[31m"
 green="\e[32m"
@@ -10,8 +10,9 @@ cyan="\e[36m"
 grey="\e[37m"
 reset="\e[0m"
 
-function newserver () {
 
+function newserver () {					 
+			
 read -p $'\e[35mEnter server ip\e[0m: ' serverip
 read -p  $'\e[34mEnter username\e[0m: ' user
 read -p $'\e[36mEnter an  alias\e[0m: ' nickname
@@ -19,20 +20,20 @@ read -p $'\e[36mEnter an  alias\e[0m: ' nickname
 newid="$user""@""$serverip"
 fileid=$RANDOM
 
-gpg -d ./serverlist.gpg > ./.list.tmp
-gpg -d ./identity.conf.gpg > ./.id.conf.tmp;
+gpg -d ./serverlist.gpg > ./.list.tmp			# The list of server aliases is decrypted into a hidden temporary file
+gpg -d ./identity.conf.gpg > ./.id.conf.tmp;		# The list of file and alias pairs is decrypted into a hidden temporary file
 
-echo "$nickname"="$fileid" >> ./.id.conf.tmp;
-echo "$nickname" >> ./.list.tmp 
-echo "$newid" > ./server_list/"$fileid".conf
+echo "$nickname" >> ./.list.tmp 			# The new server alias is add into the hidden temporary serverlist file
+echo "$nickname"="$fileid" >> ./.id.conf.tmp;		# The alias and the filename for its credentials is add to the hidden temporary identity.conf file
+echo "$newid" > ./server_list/"$fileid".conf		# A file is generated with the new server credentials with a random number for a file name
 
-mv ./.list.tmp ./serverlist
+mv ./.list.tmp ./serverlist				# After all the new data is add the hidden temporary files are converted back to standard files
 mv ./.id.conf.tmp ./identity.conf
 
-gpg -c ./serverlist
+gpg -c ./serverlist					
 gpg -c ./identity.conf
-gpg -c ./server_list/"$fileid".conf
-
+gpg -c ./server_list/"$fileid".conf			
+							# All files are Re-Encrypted & the exposed original files are deleted			
 rm ./identity.conf
 rm ./serverlist
 rm ./server_list/"$fileid".conf
